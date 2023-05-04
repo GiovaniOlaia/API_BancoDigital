@@ -2,7 +2,7 @@
 
 namespace Api\DAO;
 
-class CorrentistaDAO extends DAO
+class TransacaoDAO extends DAO
 {
 
     public function __construct()
@@ -26,7 +26,7 @@ class CorrentistaDAO extends DAO
 
     }
 
-    public function Disable()
+    public function Cancel()
     {
 
 
@@ -40,7 +40,7 @@ class CorrentistaDAO extends DAO
 
     }
 
-    public function SelectByIDCorrentista()
+    public function SelectByIDTransacao()
     {
 
         

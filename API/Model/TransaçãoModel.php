@@ -4,10 +4,10 @@ namespace Api\Model;
 
 use Exception;
 
-abstract class Model
+class TransacaoModel extends Model
 {
 
-    public $rows;
+
 
 }
 

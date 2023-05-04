@@ -1,49 +1,70 @@
 <?php
 
-use BancoDigital_API\Controller\Controller;
+use Api\Controller\CorrentistaController;
+use Api\Controller\ContaController;
+use Api\Controller\ChavePixController;
+use Api\Controller\TransacaoController;
 
-$url = parse_url($_SERVER['REQUEST_URl'], PHP_URL_PATH);
+$url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
-switch ($url) 
+switch($url)
 {
-  case '/correntista/save':
-    Controller::getSaveByCorrentista();
-  break;
 
-/**
- * [OK] Exemplo de Acesso:
- */
+    /*
+    * Correntista:
+    */
 
-  case '/conta/extrato':
-    Controller::getExtratoByConta();
-  break;
+    case "/correntista/salvar":
+        CorrentistaController::Save();
+    break;
 
-/**
- * [OK] Exemplo de Acesso:
- */
+    case "/correntista/entrar":
+        CorrentistaController::Enter();
+    break;
 
- case '/conta/pix/enviar':
-    Controller::getEnviarPixByConta();
- break;
+    /*
+    * Conta:
+    */ 
 
-/**
- * [OK] Exemplo de Acesso:
- */
+    case "/conta/pix/transferir":
+        ContaController::Transferir();
+    break;
 
-  case '/conta/pix/receber':
-    Controller::getReceberPixByConta();
- break;
+    case "/conta/pix/cobrar":
+        ContaController::Cobrar();
+    break;
 
-/**
- * [OK] Exemplo de Acesso:
- */
+    case "/conta/extrato":
+        ContaController::Gerar_Extrato();
+    break;
 
- case '/correntista/entrar':
-    Controller::getEntrarByCorrentista();
- break;
+    /*
+    * Chave Pix:
+    */
 
- default:
-    http_response_code(403);
- break;
+    case "/chave_pix/criar":
+        ChavePixController::Criar();
+    break;
 
+    case "/chave_pix/editar":
+        ChavePixController::Editar();
+    break;
+
+    case "/chave_pix/excluir":
+        ChavePixController::Excluir();
+    break;
+
+    case "/chave_pix/atualizar_portador":
+        ChavePixController::Atualizar_Portador();
+    break;
+
+    /*
+    * Transação:
+    */
+
+    default:
+        http_response_code(404);
+    
 }
+
+?>

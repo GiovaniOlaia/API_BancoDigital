@@ -2,7 +2,7 @@
 
 namespace Api\DAO;
 
-class CorrentistaDAO extends DAO
+class ChavePixDAO extends DAO
 {
 
     public function __construct()
@@ -22,11 +22,11 @@ class CorrentistaDAO extends DAO
     public function Update()
     {
 
-
+        
 
     }
 
-    public function Disable()
+    public function Delete()
     {
 
 
@@ -40,7 +40,7 @@ class CorrentistaDAO extends DAO
 
     }
 
-    public function SelectByIDCorrentista()
+    public function SelectByIDChavePix()
     {
 
         
