@@ -1,33 +1,36 @@
 <?php
 
-namespace Api\Model;
+namespace App\Model;
 
 use Exception;
+
+use App\DAO\ContaDAO;
 
 class ContaModel extends Model
 {
 
-    public function Transferir()
+    public $id_conta, $numero, $tipo, $senha_conta, $ativa, $fk_correntista;
+
+    public function Salvar()
     {
+        $dao = new ContaDao();
 
+        if($this->id_conta)
+        {
+            return $dao->Insert($this);
+        }
 
-
+        else
+        {
+            return $dao->Update($this);
+        }
     }
 
-    public function Cobrar()
+    public function Erase(int $id)
     {
-
-
-
+        (new ContadAO())->Delete($id);
     }
-
-    public function Gerar_Extrato()
-    {
-
-        
-
-    }
-
+    
 }
 
 ?>

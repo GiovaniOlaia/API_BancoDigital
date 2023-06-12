@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\DAO;
+namespace App\DAO;
 
 class ChavePixDAO extends DAO
 {

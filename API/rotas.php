@@ -1,46 +1,49 @@
 <?php
 
-use Api\Controller\CorrentistaController;
-use Api\Controller\ContaController;
-use Api\Controller\ChavePixController;
-use Api\Controller\TransacaoController;
+use App\Controller\CorrentistaController;
+use App\Controller\ContaController;
+use App\Controller\ChavePixController;
+use App\Controller\TransacaoController;
 
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
 switch($url)
 {
 
-    /*
-    * Correntista:
-    */
+     // Correntista:
+
+    case "/correntista":
+       CorrentistaController::Listagem();
+    break;
 
     case "/correntista/salvar":
-        CorrentistaController::Save();
+        CorrentistaController::Registro();
     break;
 
-    case "/correntista/entrar":
-        CorrentistaController::Enter();
+    case "/correntista/apagar":
+        CorrentistaController::Remover();
     break;
 
-    /*
-    * Conta:
-    */ 
-
-    case "/conta/pix/transferir":
-        ContaController::Transferir();
+    case "/correntista/pesqisar":
+        CorrentistaController::Pesquisar();
     break;
 
-    case "/conta/pix/cobrar":
-        ContaController::Cobrar();
+    // Conta:
+
+    case "/conta/salvar":
+        ContaController::Registro();
     break;
 
-    case "/conta/extrato":
+    case "/conta/pix/apagar":
+        ContaController::Remover();
+    break;
+
+    case "/conta/gerar_extrato":
         ContaController::Gerar_Extrato();
     break;
 
-    /*
-    * Chave Pix:
-    */
+    /* Chave Pix:
+    
 
     case "/chave_pix/criar":
         ChavePixController::Criar();
@@ -57,14 +60,22 @@ switch($url)
     case "/chave_pix/atualizar_portador":
         ChavePixController::Atualizar_Portador();
     break;
-
-    /*
-    * Transação:
     */
+
+    /* Transação:
+    
+
+    case "/transacao/transferir":
+        TransacaoController::Transferir();
+    break;
+
+    case "/transacao/cobrar":
+        TransacaoController::Cobrar();
+    break;
 
     default:
         http_response_code(404);
-    
+    */
 }
 
 ?>
