@@ -5,6 +5,7 @@ namespace App\DAO;
 use \PDO;
 
 use Exception;
+
 use PDOException;
 
 abstract class DAO extends PDO
@@ -20,10 +21,6 @@ abstract class DAO extends PDO
 
             $dsn = "mysql:host=" . $_ENV["database"]["host"] . ";dbname=" . $_ENV["database"]["db_name"];
 
-            $user = $_ENV["database"]["user"];
-
-            $password = $_ENV["database"]["password"];
-
             $options = [
 
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -32,7 +29,7 @@ abstract class DAO extends PDO
 
             ];
 
-            $this->conexao = new PDO($dsn, $user, $password, $options);
+            $this->conexao = new PDO($dsn, $_ENV["database"]["user"], $_ENV['database']['password'], $options);
 
         }
 

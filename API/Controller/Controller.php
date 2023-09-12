@@ -7,7 +7,13 @@ use Exception;
 abstract class Controller
 {
 
-    protected static function GetResponseAsJSON($data) : void
+    protected static function LogError(Exception $e)
+    {
+        $f = fopen("error.txt", "w");
+        fwrite ($f, $e->getTraceAsString());
+    }
+
+    protected static function getResponseAsJSON($data)
     {
 
         header("Access-Control-Allow-Origin: *");
@@ -20,7 +26,7 @@ abstract class Controller
 
     }
 
-    protected static function GetExceptionAsJSON(Exception $ex) : void
+    protected static function getExceptionAsJSON(Exception $ex)
     {
 
         $exception = 
@@ -45,7 +51,7 @@ abstract class Controller
 
     }
 
-    public static function SetResponseAsJSON($data, $request_status = true)
+    public static function setResponseAsJSON($data, $request_status = true)
     {
 
         $response = array("response_data" => $data, "response_successful" => $request_status);

@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-use Exception;
-
 use App\DAO\ContaDAO;
 
 class ContaModel extends Model
@@ -13,22 +11,29 @@ class ContaModel extends Model
 
     public function Salvar()
     {
-        $dao = new ContaDao();
+        $dao = new ContaDAO();
 
-        if($this->id_conta)
+        if(empty($this->id_conta))
         {
-            return $dao->Insert($this);
+            $dao->insert($this);
         }
 
         else
         {
-            return $dao->Update($this);
+            return $dao->update($this);
         }
+    }
+
+    public function getAllRows(int $id_cidadao)
+    {
+        $dao = new ContaDAO();
+
+        $this->rows = $dao->select($id_cidadao);
     }
 
     public function Erase(int $id)
     {
-        (new ContadAO())->Delete($id);
+        (new ContaDAO())->Delete($id);
     }
     
 }

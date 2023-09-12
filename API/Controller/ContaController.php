@@ -2,13 +2,27 @@
 
 namespace App\Controller;
 
-use exception;
+use Exception;
+
+/**
+ * Definimos aqui que nossa classe precisa incluir uma classe de outro subnamespace
+ * do projeto, no caso a classe PessoaModel do subnamespace Model
+ */
 
 use App\Model\ContaModel;
 
+/**
+ * Classes Controller são responsáveis por processar as requisições do usuário.
+ * Isso significa que toda vez que um usuário chama uma rota, um método (função)
+ * de uma classe Controller é chamado.
+ * O método poderá devolver uma View (fazendo um include), acessar uma Model (para
+ * buscar algo no banco de dados), redirecionar o usuário de rota, ou mesmo,
+ * chamar outra Controller.
+ */
+
 class ContaController extends Controller
 {
-    public static function Registro() : void
+    public static function Abrir() : void
     {
         try
         {
@@ -28,18 +42,18 @@ class ContaController extends Controller
 
             $model->fk_correntista = $objeto_json->fk_correntista;
 
-            parent::GetResponseAsJSON($model->Save());
+            parent::GetResponseAsJSON($model->Salvar());
             
         }
-        catch(Exception $ex)
+        catch(Exception $e) 
         {
 
-            parent::GetExceptionAsJSON($ex);
+            parent::GetExceptionAsJSON($e);
 
         }
     }
 
-    public static function Remover() : void
+    public static function Fechar() : void
     {
         try
         {
@@ -53,7 +67,7 @@ class ContaController extends Controller
         }
     }
 
-    public static function Gerar_Extrato()
+    public static function Extrato()
     {
         try
         {

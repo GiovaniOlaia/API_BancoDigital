@@ -1,19 +1,42 @@
 <?php
 
-use App\Controller\CorrentistaController;
-use App\Controller\ContaController;
-use App\Controller\ChavePixController;
-use App\Controller\TransacaoController;
+use App\Controller\
+{
+    ChavePixController,
+    CorrentistaController,
+    ContaController,
+    TransacaoController,
+};
 
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
 switch($url)
 {
+    case '/exportar':
+        $return_var = NULL;
+        $output = NULL;
+        $command = 'C:/Program Files"/MySQL/"MySQL Server 8.0"/bin/mysqldump -uroot -petecjau -P3307 -hlocalhost db_bancodigital > C:/Dev/file.sql';
+        exec($command, $output, $exit_code);
 
+        var_dump($exit_code);
+
+        echo "deu certo.";
+    break;
+    
+    // PIX:
+
+    case "/chave_pix/salvar":
+        ChavePixController::Salvar();
+    break;
+
+    case "/chave_pix/delete":
+        ChavePixController::Remover();
+    break;
+    
      // Correntista:
 
-    case "/correntista":
-       CorrentistaController::Listagem();
+    case "/correntista/entrar":
+       CorrentistaController::Entrar();
     break;
 
     case "/correntista/salvar":
@@ -30,52 +53,27 @@ switch($url)
 
     // Conta:
 
-    case "/conta/salvar":
-        ContaController::Registro();
+    case "/conta/abrir":
+        ContaController::Abrir();
     break;
 
-    case "/conta/pix/apagar":
-        ContaController::Remover();
+    case "/conta/fechar":
+        ContaController::Fechar();
     break;
 
     case "/conta/gerar_extrato":
-        ContaController::Gerar_Extrato();
+        ContaController::Extrato();
     break;
 
-    /* Chave Pix:
-    
+    // Transação:
 
-    case "/chave_pix/criar":
-        ChavePixController::Criar();
+    case "/transacao/receber_pix":
+        TransacaoController::ReceberPix();
     break;
 
-    case "/chave_pix/editar":
-        ChavePixController::Editar();
+    case "/transacao/enviar_pix":
+        TransacaoController::EnviarPix();
     break;
-
-    case "/chave_pix/excluir":
-        ChavePixController::Excluir();
-    break;
-
-    case "/chave_pix/atualizar_portador":
-        ChavePixController::Atualizar_Portador();
-    break;
-    */
-
-    /* Transação:
-    
-
-    case "/transacao/transferir":
-        TransacaoController::Transferir();
-    break;
-
-    case "/transacao/cobrar":
-        TransacaoController::Cobrar();
-    break;
-
-    default:
-        http_response_code(404);
-    */
 }
 
 ?>
