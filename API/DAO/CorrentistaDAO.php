@@ -94,6 +94,22 @@ class CorrentistaDAO extends DAO
 
     }
 
+    public function Disable(int $id, bool $ativamento)
+    {
+
+        $sql = "UPDATE Correntista SET ativo = ? WHERE id_correntista = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->bindValue(1, $ativamento);
+
+        $stmt->bindValue(2, $id);
+
+        return $stmt->execute();
+
+    }
+
+    // Função a ser excluída
     public function Delete(int $id_correntista) : bool
     {
 
@@ -120,6 +136,19 @@ class CorrentistaDAO extends DAO
 
     }
 
+    public function Search(string $query) : array
+    {
+        $parametro = [":filtro" => "%" . $query. "%"];
+
+        $sql = "SELECT * FROM Correntista WHERE ativo = 1 AND nome LIKE :filtro ORDER BY id_correntista ASC";
+
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->execute($parametro);
+
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\CorrentistaModel");
+    }
+    
     public function SelectByNomeCorrentista(string $query) : array
     {
 
